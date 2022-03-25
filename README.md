@@ -1,6 +1,7 @@
-# Voicebot Backend
+# Dialogflow ES - Fulfillment Boilerplate
 
-This repository houses the source code for the Fulfillment function which serves as the Webhook for our DialogFlow Voice Agent supporting Meijer stores and the Meijer call center.
+This repository houses boilerplate source code for the Fulfillment function of a Dialogflow ES agent. The purpose of
+this repository is to provide a generic pattern that can be spun up quickly and extended for various use cases.
 
 ## Installation
 
@@ -8,23 +9,28 @@ Clone the repository.
 Use the package manager [npm](https://www.npmjs.com/) to install all specified dependencies
 
 ```bash
-git clone (TODO: Add Repo link)
-cd fulfillment
+git clone
+cd dialogflow-es-boilerplate
 npm install
 ```
 
-## Dependencies
+## Pattern / Directory Structure
 
-In addition to the following software, there are a number of files needed to run + deploy this project that are not stored on this repository. The way to retrieve it is discussed in the next section.
+The generic pattern in this repository is structured as follows:
+![alt text](./assets/directory-structure.png)
 
-- TODO: Update this info `fulfillment-keys-dev.json` allows a local instance to retrieve the API Subscription Key and Constructor API Key.
-- TODO: Update this info `.env`, `.env.development`, `.env.staging`, `.env.production` store some environment variables and are utilized by `scripts/updateYaml.js`. We need to create `.env` in the `/fulfillment` directory and it has to have the following contents based on the dialogflow that is being pointed to.
+- `constants` is where API constant values and Dialogflow agent constants are stored
+- `controllers` houses our methods that are called when an intent is recognized.
+- `loaders` is where our middleware code is initialized
+- `routes` holds our intent mappings. This maps Dialogflow intents to their respective method calls in our fulfillment code.
+- `services` holds our HTTP service calls. Methods in this directory should be called by the methods in our `controllers` directory.
+- `utils` holds general utility functions to support in various directories across the project.
+- `index.ts` initializes our `express` application
 
-TODO: Update these env vars
+## Additional Configurations
 
-```bash
-PORT=8080
-NODE_ENV=`development`
-GOOGLE_CLOUD_PROJECT="meijer-dialogflow-chatbot-dev"
-GOOGLE_APPLICATION_CREDENTIALS="fulfillment-keys-dev.json"
-```
+In addition to the following software, there are a number of possible additions that can be made.
+
+### Environment variables
+
+Environment variables such as API keys, GCP credentials, and application information can be stored in various files. These files can be split up depending on the production environment that they belong to ie. `.env`, `.env`, `.env.development`, `.env.staging`, `.env.production`.
