@@ -8,6 +8,7 @@ const dfRequestMapper = (request: Request, response: Response) => {
         ['Default Welcome Intent', () => methods.onWelcomeIntent(agent)],
         ['orders.get-order-status', () => methods.onGetOrderStatus(agent)],
         ['test.context', () => methods.onTestContextIntent(agent)]
+        // Add additional intent routes here
     ]);
     agent.handleRequest(intentMap);
 }
